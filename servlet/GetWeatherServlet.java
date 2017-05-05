@@ -14,26 +14,26 @@ import org.json.JSONObject;
 
 
 public class GetWeatherServlet extends HttpServlet{
-	private static final int REQUEST_TIMEOUT = 20000;
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		
-		String action = req.getParameter("action");
-		if("getWeatherObject".equals(action)) {
-		String targetURL = req.getParameter("targetURL");
-		PostMethod postAPI = new PostMethod(targetURL);
-		HttpClient httpclient = new HttpClient();
-		httpclient.getParams().setSoTimeout(REQUEST_TIMEOUT);
-		int apiCode = httpclient.executeMethod(postAPI);
-		String response = postAPI.getResponseBodyAsString();
-		if (apiCode == HttpStatus.SC_OK) {
-			JSONObject rObject = new JSONObject(response);
-			Util.writeResponse(req, resp, 200, rObject);
-			return;
-			}else{
-				JSONObject rObject = new JSONObject("");
-				Util.writeResponse(req, resp, 200, rObject);
-			}
-		}
-	}
+    private static final int REQUEST_TIMEOUT = 20000;
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+    throws ServletException, IOException {
+        
+        String action = req.getParameter("action");
+        if("getWeatherObject".equals(action)) {
+            String targetURL = req.getParameter("targetURL");
+            PostMethod postAPI = new PostMethod(targetURL);
+            HttpClient httpclient = new HttpClient();
+            httpclient.getParams().setSoTimeout(REQUEST_TIMEOUT);
+            int apiCode = httpclient.executeMethod(postAPI);
+            String response = postAPI.getResponseBodyAsString();
+            if (apiCode == HttpStatus.SC_OK) {
+                JSONObject rObject = new JSONObject(response);
+                Util.writeResponse(req, resp, 200, rObject);
+                return;
+                }else{
+                JSONObject rObject = new JSONObject("");
+                Util.writeResponse(req, resp, 200, rObject);
+            }
+        }
+    }
 }
